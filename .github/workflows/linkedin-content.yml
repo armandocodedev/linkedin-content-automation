@@ -1,0 +1,68 @@
+name: LinkedIn Content Generation from JSON
+
+on:
+  # Run once a week to start (Monday at 10am)
+  schedule:
+    - cron: '0 10 * * 1'
+  # Allow manual triggering for testing
+  workflow_dispatch:
+
+jobs:
+  generate-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Select post from JSON file
+        id: select_post
+        run: |
+          # Read posts from JSON file
+          POSTS=$(cat posts.json)
+          
+          # Count how many posts are available
+          COUNT=$(echo $POSTS | jq 'length')
+          
+          # Select a random post
+          INDEX=$((RANDOM % COUNT))
+          
+          # Get the theme and content from the selected post
+          THEME=$(echo $POSTS | jq -r ".[$INDEX].theme")
+          
+          # Extract content and escape for GitHub Actions
+          CONTENT=$(echo $POSTS | jq -r ".[$INDEX].content" | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
+          
+          echo "theme=$THEME" >> $GITHUB_OUTPUT
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          echo "$CONTENT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      
+      - name: Store content in repository
+        run: |
+          # Create a simple content directory if it doesn't exist
+          mkdir -p content
+          
+          # Create a file with today's date
+          FILENAME="content/$(date +%Y-%m-%d)-linkedin-post.md"
+          
+          # Write content to file with minimal metadata
+          echo "---" > $FILENAME
+          echo "theme: ${{ steps.select_post.outputs.theme }}" >> $FILENAME
+          echo "date: $(date +%Y-%m-%d)" >> $FILENAME
+          echo "status: ready" >> $FILENAME
+          echo "---" >> $FILENAME
+          echo "" >> $FILENAME
+          echo "${{ steps.select_post.outputs.content }}" >> $FILENAME
+          
+          # Commit the file to the repository
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add $FILENAME
+          git commit -m "Generated LinkedIn post for $(date +%Y-%m-%d)"
+          git push
+      
+      - name: Output content
+        run: |
+          echo "Successfully selected LinkedIn post on ${{ steps.select_post.outputs.theme }}"
+          echo "Content is saved in the repository under the content directory"
+          echo "Check the latest commit to view the selected content"
