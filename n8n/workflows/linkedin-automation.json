@@ -1,0 +1,367 @@
+{
+  "name": "linkedin-automation",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -960,
+        80
+      ],
+      "id": "f3668280-bf4b-4087-b971-1a3663c5b20f",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the posts from the data array\n// This assumes the structure is { data: [array of posts] }\nconst allPosts = $input.first().json.data || [];\n\n// Find all unused posts\nconst unusedPosts = allPosts.filter(post => post.used === false);\n\n// Make sure we have unused posts\nif (unusedPosts.length === 0) {\n  throw new Error('No unused posts available. Please update your posts list.');\n}\n\n// Select a random unused post\nconst randomIndex = Math.floor(Math.random() * unusedPosts.length);\nconst selectedPost = unusedPosts[randomIndex];\n\n// Save the selected post and all posts for later\nreturn {\n  json: {\n    selectedPost,\n    allPosts: allPosts\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        80
+      ],
+      "id": "c74b2589-dbaf-4e1b-86c6-224bc0fff21c",
+      "name": "Select Random Post",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e4bdf4d9-32f7-48b0-a51a-64228155e22b",
+              "leftValue": "={{ $input.item.json.selectedPost.image !== null }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "a77ea269-6554-40fe-b2fc-627aade5998e",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -240,
+        80
+      ],
+      "id": "4d912cb1-294e-4168-b431-f232a1a5a142",
+      "name": "Has Image?"
+    },
+    {
+      "parameters": {
+        "person": "_lsDIYUb-C",
+        "text": "={{ $input.item.json.selectedPost.content }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        180,
+        140
+      ],
+      "id": "0677b91c-ba84-42f8-87d5-a6c11a93003e",
+      "name": "Post Text Only",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "LFQG2eEWZXyC3AVN",
+          "name": "LinkedIn account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "person": "_lsDIYUb-C",
+        "text": "={{ $json.selectedPost.content }}",
+        "shareMediaCategory": "IMAGE",
+        "additionalFields": {
+          "title": "={{ $json.allPosts[0].theme }}"
+        }
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        180,
+        0
+      ],
+      "id": "f0c90fcd-b2ab-4193-a7c1-8fa6a4b8c576",
+      "name": "Post With Image",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "LFQG2eEWZXyC3AVN",
+          "name": "LinkedIn account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fileSelector": "/data/posts.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -760,
+        80
+      ],
+      "id": "083e289f-5945-4645-95f9-9ef4753a7d45",
+      "name": "Read/Write Files from Disk",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "destinationKey": "=data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        80
+      ],
+      "id": "aeba628c-f82b-4231-adac-36a510952582",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.selectedPost.image.url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -20,
+        0
+      ],
+      "id": "e4e966e9-5e79-4f66-b6d1-a663119017f2",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "/data/posts.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        960,
+        -60
+      ],
+      "id": "633d5ad4-1f85-47b2-9a66-8bec40d107da",
+      "name": "Read/Write Files from Disk1"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        780,
+        -60
+      ],
+      "id": "aec4fbca-6f95-41d8-9682-5c289c20e6cc",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "jsCode": "// This function comes after your LinkedIn node\n// It updates the post status and prepares the complete list for saving\n\n// Get the LinkedIn post URN from the LinkedIn node\nconst linkedinUrn = $input.first().json?.urn || null;\n\n// If no URN was returned, there was likely an error\nif (!linkedinUrn) {\n  throw new Error('No LinkedIn URN was returned, posting likely failed');\n}\n\n// Get the original post data from the node where you selected the post\n// Replace \"Select Random Post\" with your actual node name\nconst selectedPost = $('Select Random Post').first().json;\n  const allPosts = $('Select Random Post').last().json;\n\n// Find the post in the array and update its status\nconst updatedPosts = allPosts.allPosts.map(post => {\n  if (post.id === selectedPost.id) {\n    return {\n      ...post,\n      used: true,\n      last_used: new Date().toISOString().split('T')[0],\n      linkedin_urn: linkedinUrn\n    };\n  }\n  return post;\n});\n\n// Return the complete updated list\nreturn {\n  json: {\n    data: updatedPosts,\n    success: true,\n    message: `Posted content about \"${selectedPost.selectedPost.theme}\" to LinkedIn`,\n    linkedinUrn: linkedinUrn\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        380,
+        80
+      ],
+      "id": "48bc8cc1-2cf6-4963-9287-8a25ad8c6589",
+      "name": "Update Posts",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.first().json.data"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        600,
+        -60
+      ],
+      "id": "15510229-6de8-4547-85e0-21c8b15858f2",
+      "name": "Return Updated Posts",
+      "executeOnce": false
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select Random Post": {
+      "main": [
+        [
+          {
+            "node": "Has Image?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Image?": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Post Text Only",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post With Image": {
+      "main": [
+        [
+          {
+            "node": "Update Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post Text Only": {
+      "main": [
+        [
+          {
+            "node": "Update Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Select Random Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Post With Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk1": {
+      "main": [
+        []
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Posts": {
+      "main": [
+        [
+          {
+            "node": "Return Updated Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Return Updated Posts": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e87066b7-95fe-4fe9-8621-bf4cdb12cb47",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "060ff5959d72157dcb8f76357a5ae760101708946a91c77e4634397bbeb3f852"
+  },
+  "id": "JeGQXAFTtBemvUcj",
+  "tags": []
+}
