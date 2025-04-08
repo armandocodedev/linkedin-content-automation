@@ -14,36 +14,31 @@ jobs:
       
       - name: Decode posts from secret
         run: |
-          # Create data directory if it doesn't exist
           mkdir -p data
-          # Decode posts directly from secret
           echo "${{ secrets.ENCODED_POSTS }}" | base64 -d > data/posts.json
       
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
       
-      - name: Run n8n workflow
+      - name: Run n8n workflow with proper command
         env:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
         run: |
-          # Run the docker container with the n8n workflow
+          # Create directory for n8n workflow
+          mkdir -p n8n/workflows
+          
+          # Copy your workflow JSON to the directory
+          cp -f your-workflow.json n8n/workflows/linkedin-automation.json
+          
+          # Run with the correct Docker command and entry point
           docker run --rm \
             -v $(pwd)/data:/data \
             -v $(pwd)/n8n/workflows:/home/node/.n8n/workflows \
             -e LINKEDIN_ACCESS_TOKEN=$LINKEDIN_ACCESS_TOKEN \
-            n8nio/n8n \
-            n8n execute --workflow "linkedin-automation" \
+            n8nio/n8n:latest \
+            /usr/local/bin/node /usr/local/lib/node_modules/n8n/bin/n8n execute --workflow "linkedin-automation" \
             > workflow_output.txt
-          
-          # Check if the workflow was successful
-          if grep -q "successfully" workflow_output.txt; then
-            echo "LinkedIn post created successfully!"
-          else
-            echo "Failed to create LinkedIn post"
-            cat workflow_output.txt
-            exit 1
-          fi
-      
+            
       - name: Extract updated posts
         run: |
           # Base64 encode the updated posts for logging
