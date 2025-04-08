@@ -1,9 +1,9 @@
-name: LinkedIn Content Automation with n8n
+name: LinkedIn Content Automation
 
 on:
   schedule:
-    - cron: '0 10 * * 1'  # Monday at 10am
-  workflow_dispatch:
+    - cron: '0 10 * * 1'  # Monday at 10am UTC
+  workflow_dispatch:      # Manual trigger
 
 jobs:
   post-to-linkedin:
@@ -12,48 +12,55 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
+      - name: Decode posts from secret
+        run: |
+          # Create data directory if it doesn't exist
+          mkdir -p data
+          # Decode posts directly from secret
+          echo "${{ secrets.ENCODED_POSTS }}" | base64 -d > data/posts.json
+      
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
       
-      - name: Decode posts from secret
-        run: |
-          echo "${{ secrets.ENCODED_POSTS }}" | base64 -d > data/posts.json
-      
-      - name: Build and run n8n container
+      - name: Run n8n workflow
         env:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
         run: |
-          docker build -t linkedin-automation -f docker/Dockerfile .
-          
+          # Run the docker container with the n8n workflow
           docker run --rm \
             -v $(pwd)/data:/data \
+            -v $(pwd)/n8n/workflows:/home/node/.n8n/workflows \
             -e LINKEDIN_ACCESS_TOKEN=$LINKEDIN_ACCESS_TOKEN \
-            linkedin-automation
-      
-      - name: Create record of post
-        run: |
-          # Create record file for the repository
-          if [ -f "data/last_post_info.json" ]; then
-            mkdir -p content
-            POST_INFO=$(cat data/last_post_info.json)
-            THEME=$(echo $POST_INFO | jq -r ".theme")
-            POST_ID=$(echo $POST_INFO | jq -r ".id")
-            POST_DATE=$(date +%Y-%m-%d)
-            
-            FILENAME="content/$POST_DATE-linkedin-post.md"
-            
-            echo "---" > $FILENAME
-            echo "theme: $THEME" >> $FILENAME
-            echo "date: $POST_DATE" >> $FILENAME
-            echo "post_id: $POST_ID" >> $FILENAME
-            echo "status: posted" >> $FILENAME
-            echo "---" >> $FILENAME
-            echo "" >> $FILENAME
-            echo "Post ID $POST_ID was published to LinkedIn." >> $FILENAME
-            
-            git config user.name "GitHub Actions Bot"
-            git config user.email "actions@github.com"
-            git add $FILENAME
-            git commit -m "Posted to LinkedIn: $THEME"
-            git push
+            n8nio/n8n \
+            n8n execute --workflow "linkedin-automation" \
+            > workflow_output.txt
+          
+          # Check if the workflow was successful
+          if grep -q "successfully" workflow_output.txt; then
+            echo "LinkedIn post created successfully!"
+          else
+            echo "Failed to create LinkedIn post"
+            cat workflow_output.txt
+            exit 1
           fi
+      
+      - name: Extract updated posts
+        run: |
+          # Base64 encode the updated posts for logging
+          UPDATED_POSTS=$(cat data/posts.json | base64)
+          echo "UPDATED_POSTS<<EOF" >> $GITHUB_ENV
+          echo "$UPDATED_POSTS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+                
+      - name: Commit record to repository
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add content/*.json
+          git commit -m "Posted to LinkedIn on $(date +%Y-%m-%d)" || echo "No changes to commit"
+          git push
+          
+      - name: Display updated posts
+        run: |
+          echo "Updated posts.json (base64 encoded). Update this in your GitHub secrets:"
+          echo "$UPDATED_POSTS"
