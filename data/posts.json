@@ -1,1 +1,479 @@
-[{"id":1,"theme":"API Testing Strategy","content":"Just wrapped up a comprehensive API testing strategy overhaul at our Virtual Data Room platform that cut incident response time by 30%! 💪\n\nWhen I joined as Senior SDET, I noticed our API tests were scattered across different frameworks and lacked proper monitoring. The team was spending too much time diagnosing production issues rather than preventing them.\n\nHere's the approach that transformed our testing:\n\n1️⃣ Created a unified REST Assured + Cucumber framework that standardized how we test APIs across the organization\n\n2️⃣ Implemented contract testing with Pact to catch integration issues before deployment - this alone prevented 15+ potential production incidents last quarter\n\n3️⃣ Set up continuous API monitoring that alerts the team when critical endpoints experience performance degradation or error spikes\n\n4️⃣ Built a comprehensive test data generation strategy that allows us to simulate edge cases that were previously difficult to reproduce\n\nThe biggest win? Our mean time to resolution (MTTR) for API-related incidents dropped by 30%, and we've increased our API test coverage from 65% to 92% within six months.\n\nWhat API testing strategies have made the biggest impact on your team's quality metrics?\n\n#APITesting #QualityAssurance #TestAutomation #TestStrategy #SDET","image":{"url":"https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop","alt_text":"API Testing Dashboard"},"used":false,"last_used":null,"linkedin_urn":null},{"id":2,"theme":"Playwright Best Practices","content":"After implementing these Playwright testing best practices in our Virtual Data Room platform, we reduced our test execution time by 70% and virtually eliminated flaky tests! 🔥\n\nStarted by rethinking our automation strategy from the ground up:\n\n1️⃣ Migrated from page objects to component-based architecture that better matches our React frontend\n\n2️⃣ Implemented robust state management - we're now preserving authentication state between tests, which eliminated redundant logins and cut test times dramatically\n\n3️⃣ Leveraged Playwright's built-in auto-waiting and selector engines to replace all explicit waits (goodbye, fragile sleep() calls!)\n\n4️⃣ Utilized traces and videos for failed tests only, giving us detailed debugging info without the storage overhead\n\n5️⃣ Set up cross-browser/cross-device testing in parallel as part of our CI pipeline\n\nThe results speak for themselves: Our E2E test suite that used to take 45 minutes now completes in under 15 minutes. Even better, test stability went from ~80% to 99.5% - meaning engineers actually trust and use the results!\n\nWhat Playwright practices have been game-changers for your team?\n\n#PlaywrightTesting #AutomationTesting #FrontendTesting #QualityAssurance #TestStrategy","image":null,"used":true,"last_used":"2025-03-29","linkedin_urn":"urn:li:share:7311542042652565123"},{"id":3,"theme":"CI/CD for Testing","content":"Transforming our CI/CD pipeline for the Virtual Data Room testing infrastructure was a massive undertaking, but the results have been incredible! 🚀\n\nWhen I started as Senior SDET, our testing was a bottleneck - running only at the end of our development cycle and taking over 3 hours to complete. Now, we've implemented a modern pipeline that supports true continuous testing:\n\n1️⃣ Restructured our test pyramid with more emphasis on unit and API tests, while keeping critical E2E scenarios\n\n2️⃣ Introduced test splitting and parallelization in our CI pipeline, distributing tests across multiple runners\n\n3️⃣ Implemented intelligent test selection that only runs affected tests based on code changes\n\n4️⃣ Created a dedicated testing environment that's refreshed with production-like data before each test run\n\n5️⃣ Built custom dashboards that visualize test coverage, execution times, and flakiness over time\n\nThe impact? Our full test suite now runs in under 20 minutes (down from 3+ hours), we've reduced our release cycle from bi-weekly to daily, and - most importantly - developers get feedback within minutes of pushing code.\n\nWhat CI/CD improvements have had the biggest impact on your testing efficiency?\n\n#CICD #TestAutomation #DevOps #ContinuousTesting #QualityEngineering","image":{"url":"https://images.unsplash.com/photo-1599507593499-a3f7d7d97667?q=80&w=2070&auto=format&fit=crop","alt_text":"CI/CD Pipeline Visualization"},"used":false,"last_used":null,"linkedin_urn":null},{"id":4,"theme":"Test Case Management","content":"Overhauling our test case management system at the Virtual Data Room company gave us unprecedented visibility into our testing coverage and efficiency! 📊\n\nWhen I joined the team, test cases were scattered across Excel sheets, Confluence pages, and individual engineers' notes. This made it impossible to track coverage, identify gaps, or understand test history.\n\nHere's how we transformed our approach:\n\n1️⃣ Consolidated all test cases into a centralized system that integrates with our issue tracker and CI/CD pipeline\n\n2️⃣ Implemented requirement-based testing with full traceability from business requirements to test cases to execution results\n\n3️⃣ Created a risk-based testing framework that prioritizes test execution based on feature criticality and historical defect patterns\n\n4️⃣ Developed custom dashboards that visualize our testing status and coverage across different dimensions (features, devices, browsers, etc.)\n\n5️⃣ Introduced automated test case generation for API endpoints using OpenAPI specifications\n\nThe results have been transformative: 40% reduction in duplicate testing effort, 90% decrease in critical production issues, and complete visibility for stakeholders into our testing coverage.\n\nWhat test management improvements have made the biggest difference for your team?\n\n#TestManagement #QA #TestStrategy #QualityAssurance #TestAutomation","image":{"url":"https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop","alt_text":"Test Case Management Dashboard"},"used":false,"last_used":null,"linkedin_urn":null},{"id":5,"theme":"Performance Testing Strategy","content":"Our performance testing overhaul for the Virtual Data Room platform revealed critical bottlenecks that would have brought down our system during peak usage! 📈\n\nWhen I implemented our new performance testing strategy, we discovered that our system would fail under just 60% of our projected peak load - a ticking time bomb for a platform that handles sensitive financial data.\n\nHere's how we transformed our approach:\n\n1️⃣ Moved from ad-hoc performance tests to a comprehensive strategy covering load, stress, spike, endurance, and scalability testing\n\n2️⃣ Built realistic user journeys based on production analytics rather than artificial scenarios\n\n3️⃣ Implemented distributed load generation from multiple geographic regions to simulate our global user base\n\n4️⃣ Created custom dashboards correlating performance metrics with system resource utilization\n\n5️⃣ Integrated continuous performance testing into our CI/CD pipeline, with automatic alerting for performance regressions\n\nThe results were eye-opening: We identified and fixed 7 major bottlenecks that would have caused catastrophic failures during our upcoming expansion. Post-fixes, our platform now handles 3x our peak projections with response times under 200ms.\n\nWhat performance testing approaches have yielded the most valuable insights for your team?\n\n#PerformanceTesting #LoadTesting #QualityAssurance #DevOps #SoftwareTesting","image":null,"used":false,"last_used":null,"linkedin_urn":null}]
+[
+  {
+    "id": 1,
+    "theme": "API Testing Insights",
+    "content": "Effective API testing is about resilience, not just coverage. We recently focused on error paths and gained real confidence in production stability.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1581091215367-59ab6c68f3a0?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "API testing concept on screen"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 2,
+    "theme": "Playwright Debugging",
+    "content": "Playwright’s trace viewer turned long investigations into quick reviews. Faster feedback means faster fixes.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Engineer reviewing traces"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 3,
+    "theme": "CI/CD Acceleration",
+    "content": "Parallel test execution cut our feedback loop from hours to minutes. Small pipeline changes can unlock big delivery gains.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1581090700227-4c4f3dff9a22?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Automated pipeline dashboard"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 4,
+    "theme": "Test Data Management",
+    "content": "Stable automation starts with stable data. Synthetic datasets removed flakiness and improved repeatability.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Data charts for testing"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 5,
+    "theme": "Shift-Left Testing",
+    "content": "Catching defects early saves time and cost. We moved unit, contract, and API checks closer to the commit.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Developer writing early-stage tests"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 6,
+    "theme": "Performance Testing",
+    "content": "Load and spike tests exposed hidden bottlenecks in auth and search. Fixing them improved user experience under peak traffic.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1537432376769-00a4c525bbd1?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "System performance graphs"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 7,
+    "theme": "Risk-Based Testing",
+    "content": "We prioritized by business impact, not just number of tests. Coverage stayed meaningful while execution time dropped.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1605902711622-cfb43c4437b5?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Risk and priority board"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 8,
+    "theme": "Visual Regression",
+    "content": "Visual checks caught layout regressions our assertions missed. It’s now part of our UI safety net.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1610465299993-7e418dfac528?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "UI screenshots comparison"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 9,
+    "theme": "Contract Testing",
+    "content": "Consumer-driven contracts gave us early warnings on breaking API changes. Integrations are now far more predictable.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "API integration diagram"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 10,
+    "theme": "Test Case Visibility",
+    "content": "Centralized test cases with traceability improved decision making. Stakeholders can see coverage and gaps at a glance.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1612831455355-5a1d95c5f73a?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Dashboard showing test coverage"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 11,
+    "theme": "Flaky Test Reduction",
+    "content": "We replaced brittle waits with reliable locators and auto-waiting. Flakiness dropped and trust in results went up.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Stable test results chart"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 12,
+    "theme": "Security in CI/CD",
+    "content": "Security testing is part of quality. Automated checks run each build so issues are found before release.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Secure development workflow"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 13,
+    "theme": "Mobile Testing",
+    "content": "Real devices exposed performance and gesture issues emulators missed. It changed our release criteria.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Testing on mobile devices"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 14,
+    "theme": "Continuous Monitoring",
+    "content": "Post-deploy API monitors alerted us to latency spikes within minutes. Observability closed the loop on quality.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Monitoring graphs and alerts"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 15,
+    "theme": "QA Collaboration",
+    "content": "Quality improved when Dev, QA, and Ops shared ownership. Transparency mattered more than any single tool.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Cross-functional team collaboration"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 16,
+    "theme": "E2E Scope",
+    "content": "We kept E2E tests for critical paths and pushed depth to API and unit layers. Faster runs, clearer signals.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "User journey mapping for tests"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 17,
+    "theme": "Automation ROI",
+    "content": "We measured defect leakage and engineering hours saved. The numbers justified deeper automation investment.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "ROI metrics for automation"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 18,
+    "theme": "Exploratory Testing",
+    "content": "Structured exploratory sessions revealed usability issues scripts never would. Human insight still matters.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Tester exploring a new feature"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 19,
+    "theme": "Environment Reliability",
+    "content": "Infrastructure as code made our test environments reproducible. Runs are consistent and easier to debug.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Cloud infrastructure for testing"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 20,
+    "theme": "Quality Culture",
+    "content": "Treating quality as a shared value reduced rework and sped up releases. Culture change amplified every tool we use.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Team aligning on quality goals"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 31,
+    "theme": "API Testing Insights",
+    "content": "Effective API testing is not just about coverage but about resilience. Recently, we validated error handling paths that often get overlooked. This gave our team confidence in production stability.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1581091215367-59ab6c68f3a0?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "API Testing Concept"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 32,
+    "theme": "Playwright Debugging",
+    "content": "Debugging tests should be fast. Using Playwright’s trace viewer, we cut investigation time from hours to minutes. Small tooling changes can reshape productivity.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Debugging Software Tests"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 33,
+    "theme": "CI/CD Acceleration",
+    "content": "Parallelizing our test execution reduced feedback loops dramatically. What used to take hours now takes minutes, enabling faster and safer releases.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1581090700227-4c4f3dff9a22?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "CI/CD Acceleration"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 34,
+    "theme": "Test Data Matters",
+    "content": "Reliable test data is often the difference between stable automation and flaky results. We invested in synthetic data generation, and it paid off with consistent outcomes.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Data and Testing"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 35,
+    "theme": "Shift-Left Testing",
+    "content": "The earlier a defect is found, the cheaper it is to fix. By integrating unit and contract tests earlier in our pipeline, we avoided costly last-minute surprises.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Shift-Left Testing"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 36,
+    "theme": "Performance Testing Learnings",
+    "content": "Load testing uncovered bottlenecks in our authentication system that normal functional tests missed. Proactive performance checks prevented real-world failures.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1537432376769-00a4c525bbd1?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Performance Testing"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 37,
+    "theme": "Risk-Based Testing",
+    "content": "Not all tests are equal. We prioritized by business impact, which reduced execution time while maintaining strong coverage on critical areas.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1605902711622-cfb43c4437b5?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Risk-Based Testing"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 38,
+    "theme": "Visual Regression Testing",
+    "content": "Adding visual checks helped us catch UI issues traditional assertions never spotted. This became a safety net for design consistency.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1610465299993-7e418dfac528?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Visual Regression"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 39,
+    "theme": "Contract Testing Benefits",
+    "content": "Consumer-driven contract testing gave us confidence when integrating with external services. It became our first line of defense against breaking changes.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "API Contract Testing"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 40,
+    "theme": "Test Case Visibility",
+    "content": "Centralizing test cases in one platform allowed our stakeholders to finally see coverage, gaps, and quality trends in real time.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1612831455355-5a1d95c5f73a?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Test Case Management"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 41,
+    "theme": "Flaky Test Reduction",
+    "content": "Flaky tests damage trust. By eliminating unnecessary waits and stabilizing selectors, we reduced flakiness by over 80%.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Test Stability"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 42,
+    "theme": "Security Testing Integration",
+    "content": "Security is part of quality. Running automated OWASP checks as part of CI/CD gave us early signals before vulnerabilities reached production.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Security Testing"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 43,
+    "theme": "Mobile Testing Experience",
+    "content": "Real-device testing gave us insights no emulator could show. Performance and gesture accuracy were significantly different than expected.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Mobile Testing"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 44,
+    "theme": "Continuous Monitoring",
+    "content": "Tests don’t stop at deployment. API monitors gave us immediate visibility when latency spikes occurred in production.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Continuous Monitoring"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 45,
+    "theme": "Collaboration in Testing",
+    "content": "Quality improved when QA, Dev, and Ops shared ownership of test results. Transparency changed the culture more than any tool.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Team Collaboration"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 46,
+    "theme": "End-to-End Testing Scope",
+    "content": "E2E tests are expensive. We focused only on the critical user journeys, and relied on API and unit tests for depth. This balance sped up releases.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "End-to-End Testing"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 47,
+    "theme": "Automation ROI",
+    "content": "Automation is an investment. By measuring defect leakage and execution savings, we proved its value beyond just testing faster.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Automation ROI"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 48,
+    "theme": "Exploratory Testing Still Counts",
+    "content": "No automation can replace human creativity. Exploratory sessions uncovered usability issues that scripts could never predict.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Exploratory Testing"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 49,
+    "theme": "Test Environment Reliability",
+    "content": "We stabilized our testing environments with infrastructure-as-code. The result: reproducible, consistent environments for every run.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Test Environments"
+    },
+    "used": false,
+    "last_used": null,
+    "linkedin_urn": null
+  },
+  {
+    "id": 50,
+    "theme": "Quality as a Team Value",
+    "content": "The biggest change wasn’t technical—it was cultural. Treating quality as a shared responsibility improved delivery speed and reduced rework.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop",
+      "alt_text": "Team Quality Mindset"
+    }
+  }
+]
