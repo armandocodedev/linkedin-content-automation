@@ -1,3 +1,4 @@
 FROM docker.n8n.io/n8nio/n8n:1.106.3
 ENV N8N_PORT=${PORT:-5678}
 EXPOSE 5678
+WORKDIR /home/node
