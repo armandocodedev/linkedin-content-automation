@@ -4,5 +4,5 @@ WORKDIR /tmp
 
 RUN apk add --no-cache coreutils
 
-# On startup: copy old data to new location, then keep container alive
-CMD ["/bin/sh", "-c", "mkdir -p /home/node/.n8n && cp -r /data/* /home/node/.n8n/ || true && tail -f /dev/null"]
+# Copy data from /data to /home/node/.n8n on startup
+CMD mkdir -p /home/node/.n8n && cp -r /data/* /home/node/.n8n/ || true && sleep infinity

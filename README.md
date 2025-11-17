@@ -1,46 +1,90 @@
-# LinkedIn Content Automation
+# n8n Workflow Automation Platform
 
-This repository contains a GitHub Actions workflow that automatically generates professional LinkedIn posts for a QA Automation Consultant using Claude AI.
+This repository contains an n8n instance configured for workflow automation, designed to be deployed on Railway with persistent data storage.
 
-## How It Works
+## Overview
 
-1. The workflow runs on a schedule (Monday at 10am) or can be triggered manually
-2. It randomly selects a QA/testing-related theme
-3. Uses Claude AI to generate a professional LinkedIn post
-4. Saves the post in the repository under the `content` directory
-5. The content can then be manually reviewed and posted to LinkedIn
+This is a self-hosted n8n instance that runs multiple automation workflows in a single container. The setup includes:
 
-## Setting Up
+- **n8n workflow automation platform** (node:22-alpine based)
+- **Persistent data storage** via the `data/` folder
+- **Railway deployment ready** with proper port configuration
+- **Multiple workflows** running in the same instance
 
-### Required Secret
+## Project Structure
 
-This workflow requires a Claude API key. To set it up:
+```
+.
+├── Dockerfile           # Main n8n instance container
+├── data/               # Persistent storage for n8n (workflows, credentials, settings)
+│   └── posts.json      # Example workflow data
+└── migration-service/  # Additional services
+    └── Dockerfile
+```
 
-1. Sign up for an Anthropic API key at [https://console.anthropic.com/](https://console.anthropic.com/)
-2. Go to this repository's Settings > Secrets and variables > Actions
-3. Add a new repository secret named `CLAUDE_API_KEY` with your API key
+## Data Persistence
 
-### Testing the Workflow
+The `data/` folder is used for n8n data persistence and is mounted to the container's `/data` directory. This folder contains:
 
-1. After adding the API key, go to the Actions tab
-2. Select the "LinkedIn Content Generation MVP" workflow
-3. Click "Run workflow" > "Run workflow"
-4. Monitor the workflow execution
-5. Once complete, check the `content` directory for the generated post
+- Workflow definitions
+- Credentials (encrypted)
+- Execution history
+- Settings and configurations
+- User data
 
-## Usage
+This folder is exposed to the host machine to ensure data persists across container restarts and redeployments.
 
-- The generated content will be saved as markdown files in the `content` directory
-- Each file includes metadata and the generated post
-- Copy the content and post it manually to LinkedIn
-- You can modify the themes or prompt in the workflow file to customize the content
+## Deployment on Railway
 
-## Future Enhancements
+### Prerequisites
 
-- Email notifications when content is generated
-- Automatic posting to LinkedIn
-- Support for other social media platforms
-- Content analytics tracking
+- Railway account ([https://railway.app/](https://railway.app/))
+- This repository connected to Railway
+
+### Setup Instructions
+
+1. **Create a new project** in Railway
+2. **Connect this repository** to your Railway project
+3. **Configure environment variables** (if needed for specific workflows)
+4. **Deploy** - Railway will automatically detect the Dockerfile and build the container
+5. **Access n8n** via the generated Railway URL
+
+Railway will automatically:
+- Assign a PORT environment variable
+- Handle HTTPS/SSL certificates
+- Provide persistent volume storage
+
+### Environment Variables
+
+The container is configured to use Railway's dynamic `$PORT` variable. Additional environment variables can be set in Railway for:
+- `N8N_BASIC_AUTH_ACTIVE` - Enable/disable basic auth
+- `N8N_BASIC_AUTH_USER` - Username for basic auth
+- `N8N_BASIC_AUTH_PASSWORD` - Password for basic auth
+- Custom workflow-specific variables
+
+## Local Development
+
+To run n8n locally:
+
+```bash
+docker build -t n8n-workflows .
+docker run -p 5678:5678 -v $(pwd)/data:/data n8n-workflows
+```
+
+Access n8n at `http://localhost:5678`
+
+## Workflows
+
+This instance hosts multiple automation workflows. Workflows can be:
+- Created via the n8n web interface
+- Imported from JSON files
+- Managed through the n8n UI
+
+Common workflow types:
+- Content automation
+- Data processing
+- API integrations
+- Scheduled tasks
 
 ## License
 
